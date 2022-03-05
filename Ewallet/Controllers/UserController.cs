@@ -29,13 +29,15 @@ namespace Ewallet.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
+        private readonly IWalletService _walletService;
 
-        public UserController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IEmailSender emailSender)
+        public UserController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IEmailSender emailSender, IWalletService walletService)
         {
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
             _emailSender = emailSender;
+            _walletService = walletService;
         }
 
         [HttpPost("add-user")]
@@ -79,7 +81,7 @@ namespace Ewallet.Controllers
             }
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var url = Url.Action("ConfrimEmail", "User", new { Email = user.Email, Token = token }, Request.Scheme);  // this is the url to send
+            var url = Url.Action("ConfirmEmail", "User", new { Email = user.Email, Token = token }, Request.Scheme);  // this is the url to send
 
             // next thing TODO here is to send an email to this new user to the email provided using a notification service you should build
 
@@ -91,7 +93,10 @@ namespace Ewallet.Controllers
                 $"<p><b>Note:</b> You are receiving this email because it's important and it's not something that you can unsubscribe from.</p>";
             
             var message = new Message(new List<EmailConfiguration>{ new EmailConfiguration { DisplayName = user.FirstName, From = "no_reply@gmail.com", Address = user.Email } }, "Email Confirmation", confirmationMessage);
-            await _emailSender.SendEmailAsync(message);
+            
+            var mailResponse = await _emailSender.SendEmailAsync(message);
+
+            if (!mailResponse) await _userManager.DeleteAsync(user);
 
             // map data to dto
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -292,6 +297,11 @@ namespace Ewallet.Controllers
             {
                 ModelState.AddModelError("NotFound", string.Format("Roles '{0}' does not exixts in the system", string.Join(",", rolesNotExists)));
                 return NotFound(Util.BuildResponse<object>(false, "User not found!", ModelState, null));
+            }
+
+            if (currentRoles.Equals("Elite"))
+            {
+                await _walletService.MergeWallets(user.Id);
             }
 
             IdentityResult removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles.ToArray());

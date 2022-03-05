@@ -12,7 +12,7 @@ namespace Ewallet
     public class Program
     {
         public static void Main(string[] args)
-        {
+        {            
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -20,7 +20,8 @@ namespace Ewallet
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    var port = Environment.GetEnvironmentVariable("PORT");
+                    webBuilder.UseStartup<Startup>().UseUrls("http://*:" + port);
                 });
     }
 }

@@ -1,0 +1,1 @@
+2022-01-12 09:43:36.9824 ERROR Attempted to divide by zero.

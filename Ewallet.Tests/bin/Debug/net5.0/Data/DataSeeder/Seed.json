@@ -1,0 +1,73 @@
+﻿[
+  {
+    "Lastname": "Merlino",
+    "FirstName": "Arsene",
+    "Email": "abideklove@gmail.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (818) 008-4896",
+    "IsActive": true,
+    "CreatedAt": "2021-01-03T03:04:58 -01:00",
+    "ModifiedAt": "2017-02-14T06:08:17 -01:00"
+  },
+  {
+    "Lastname": "Willis",
+    "FirstName": "Curtis",
+    "Email": "curtiswillis@micronaut.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (919) 587-3085",
+    "IsActive": true,
+    "CreatedAt": "2021-01-03T03:04:58 -01:00",
+    "ModifiedAt": "2017-02-14T06:08:17 -01:00"
+  },
+  {
+    "Lastname": "Wiley",
+    "FirstName": "Franklin",
+    "Email": "franklinwiley@micronaut.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (819) 508-2462",
+    "IsActive": false,
+    "CreatedAt": "2017-09-14T07:42:13 -01:00",
+    "ModifiedAt": "2020-01-28T02:50:22 -01:00"
+  },
+  {
+    "Lastname": "Saunders",
+    "FirstName": "Kline",
+    "Email": "klinesaunders@micronaut.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (848) 444-2088",
+    "IsActive": true,
+    "CreatedAt": "2021-04-29T02:27:32 -01:00",
+    "ModifiedAt": "2019-01-26T08:57:25 -01:00"
+  },
+  {
+    "Lastname": "Grant",
+    "FirstName": "Berg",
+    "Email": "berggrant@micronaut.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (960) 535-3929",
+    "IsActive": true,
+    "CreatedAt": "2017-05-09T02:19:03 -01:00",
+    "ModifiedAt": "2016-02-21T07:8:30 -01:00"
+  },
+  {
+    "Lastname": "Hudson",
+    "FirstName": "Rhodes",
+    "Email": "rhodeshudson@micronaut.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (843) 487-2759",
+    "IsActive": true,
+    "CreatedAt": "2020-12-25T03:45:11 -01:00",
+    "ModifiedAt": "2021-09-22T12:46:01 -01:00"
+  },
+  {
+    "Lastname": "Washington",
+    "FirstName": "Gutierrez",
+    "Email": "gutierrezwashington@micronaut.com",
+    "Gender": "male",
+    "PhoneNumber": "+234 (935) 404-3352",
+    "IsActive": true,
+    "CreatedAt": "2016-01-17T04:18:46 -01:00",
+    "ModifiedAt": "2017-08-04T09:40:37 -01:00"
+  }
+]
+

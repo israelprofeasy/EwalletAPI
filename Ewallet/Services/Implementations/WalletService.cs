@@ -11,10 +11,15 @@ namespace Ewallet.Services.Implementations
     public class WalletService : IWalletService
     {
         private readonly IWalletRepository _walletRepository;
+        private readonly ICurrencyConverterService _currencyConverterService;
+        private readonly IWalletCurrencyService _walletCurrencyService;
 
-        public WalletService(IWalletRepository walletRepository)
+        public WalletService(IWalletRepository walletRepository,
+            ICurrencyConverterService currencyConverterService, IWalletCurrencyService walletCurrencyService)
         {
             _walletRepository = walletRepository;
+            _currencyConverterService = currencyConverterService;
+            _walletCurrencyService = walletCurrencyService;
         }
         public async Task<List<Wallet>> Add(Wallet newWallet)
         {
@@ -66,7 +71,7 @@ namespace Ewallet.Services.Implementations
 
             try
             {
-                wallets = await _walletRepository.GetUserWallets();                
+                wallets = await _walletRepository.GetUserWallets();
             }
             catch (Exception ex)
             {
@@ -185,6 +190,30 @@ namespace Ewallet.Services.Implementations
 
             if (wallet != null) status = true;
             return status;
+        }
+
+        public async Task MergeWallets(string userId)
+        {
+            List<Wallet> wallets = await _walletRepository.GetUserWalletsByAdmin(userId);
+            Wallet mainWallet = wallets.FirstOrDefault(w => w.IsMain);
+
+            foreach (var wallet in wallets)
+            {
+                if (!wallet.IsMain)
+                {
+                    var fromWalletCurrency = await _walletCurrencyService.GetMainWalletCurrency(wallet.Id);
+                    var toWalletCurrency = await _walletCurrencyService.GetMainWalletCurrency(mainWallet.Id);
+                    var exchangeRate = _currencyConverterService.GetCurrencyExchange(fromWalletCurrency.Currency.ShortCode, toWalletCurrency.Currency.ShortCode);
+                    var conversion = wallet.Balance * exchangeRate;
+                    mainWallet.Balance += conversion;
+                    await Delete(wallet.Id);
+                }
+                else
+                {
+                    throw new Exception("Main wallet not found. Please set a main wallet");
+                }
+            }
+
         }
     }
 }

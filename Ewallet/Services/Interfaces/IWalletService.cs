@@ -16,6 +16,7 @@ namespace Ewallet.Services.Interfaces
         Task<Wallet> Update(string walletId, string userId, Wallet wallet);
         Task<bool> SetMainWallet(string walletId);
         Task<bool> HasWallet();
+        Task MergeWallets(string userId);
         Task<bool> Delete(string walletId);
     }
 }

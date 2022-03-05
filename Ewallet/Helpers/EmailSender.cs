@@ -17,10 +17,14 @@ namespace Ewallet.Helpers
             _emailConfiguration = emailConfiguration;
         }
 
-        public async Task SendEmailAsync(Message message)
+        public async Task<bool> SendEmailAsync(Message message)
         {
             var emailMessage = CreateEmailMessage(message);
-            await SendAsync(emailMessage);
+            var res = await SendAsync(emailMessage);
+
+            if (res) return true;
+
+            else return false;
         }
 
         private MimeMessage CreateEmailMessage(Message message)
@@ -34,7 +38,7 @@ namespace Ewallet.Helpers
             return emailMessage;
         }
 
-        private async Task SendAsync(MimeMessage mailMessage)
+        private async Task<bool> SendAsync(MimeMessage mailMessage)
         {
             using (var client = new SmtpClient())
             {
@@ -47,6 +51,8 @@ namespace Ewallet.Helpers
                     await client.AuthenticateAsync(_emailConfiguration.UserName, _emailConfiguration.Password);
 
                     await client.SendAsync(mailMessage);
+
+                    return true;
                 }
                 catch (Exception ex)
                 {

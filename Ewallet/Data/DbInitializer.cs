@@ -38,14 +38,15 @@ namespace Ewallet.Data
                     {
                         FirstName = "Arsene",
                         LastName = "Merlino",
-                        Email = "abideklove@gmail.com",
-                        CreatedAt = DateTime.Now
+                        Email = "admin@gmail.com",
+                        CreatedAt = DateTime.Now,
+                        EmailConfirmed = true
                     };
 
                     user.UserName = user.Email;
 
                     role = roles[1];
-                    var result = await userManager.CreateAsync(user, "@Merlino07");
+                    var result = await userManager.CreateAsync(user, "P@ssw0rd");
                     if (result.Succeeded)
                     {
                         await userManager.AddToRoleAsync(user, role);

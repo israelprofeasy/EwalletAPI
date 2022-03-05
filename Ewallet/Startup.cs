@@ -33,7 +33,7 @@ namespace Ewallet
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));            
         }
 
         public IConfiguration Configuration { get; }
@@ -44,7 +44,9 @@ namespace Ewallet
 
             services.AddControllers();
             services.ConfigureCors();
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
@@ -129,9 +131,7 @@ namespace Ewallet
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ewallet v1"));
+                app.UseDeveloperExceptionPage();                
             }
 
             app.ConfigureExceptionHandler(loggerService);
@@ -152,6 +152,9 @@ namespace Ewallet
             });
 
             DbInitializer.Seed(app, userManager, roleManager).Wait();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ewallet v1"));
         }
     }
 }

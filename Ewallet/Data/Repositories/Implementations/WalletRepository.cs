@@ -63,6 +63,11 @@ namespace Ewallet.Data.Repositories.Implementations
             return wallets;
         }
 
+        public async Task<List<Wallet>> GetUserWalletsByAdmin(string userId)
+        {
+            return await _context.Wallets.Where(w => w.UserId == userId).ToListAsync();
+        }
+
         public async Task<Wallet> GetWalletById(string id)
         {
             Wallet wallet = null;
@@ -76,7 +81,7 @@ namespace Ewallet.Data.Repositories.Implementations
 
             if (!role.Equals("Admin") && !getWallet.UserId.Equals(currentUserId))
             {
-                throw new Exception("Unauthorized Access");                
+                throw new Exception("Unauthorized Access");
             }
             else
             {

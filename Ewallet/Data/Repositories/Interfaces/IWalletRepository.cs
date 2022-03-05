@@ -10,6 +10,7 @@ namespace Ewallet.Data.Repositories.Interfaces
     {
         Task<List<Wallet>> GetAllWallets();
         Task<List<Wallet>> GetUserWallets();
+        Task<List<Wallet>> GetUserWalletsByAdmin(string userId);
         Task<Wallet> GetWalletById(string id);
         Task<Wallet> GetMainWallet();
         Task<Wallet> HasWallet();
