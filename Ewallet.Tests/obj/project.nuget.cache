@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xSFnP4ZqYddHXa6Ce2HPqwDGvBuwVxcZar7bp4YUnevx5XtEu6ifWKj1bkfBfNbqYTuRpIZVkz6+ZOlnSQ+1eA==",
+  "dgSpecHash": "LIw3DcEOpsoCUM6c3QlSdt5Vj/kbmmWgfec+WZJym/PtY9n3lm58TT0LVZhKXP1+98V2NAotFAwNAaYeahejOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hp\\source\\repos\\BreakProject\\Ewallet-main_2\\Ewallet-main\\Ewallet.Tests\\Ewallet.Tests.csproj",
+  "projectFilePath": "C:\\Users\\hp\\source\\repos\\BreakProject\\Ewallet-main_2\\Ewallet\\Ewallet.Tests\\Ewallet.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
